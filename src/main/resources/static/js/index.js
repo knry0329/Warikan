@@ -44,7 +44,7 @@ $(function(){
 			  $.each(data.payByPersonList,function(index,val) {
 				  $('.result').append("<div><span>"+val.name+"さんは</span></div>")
 				  $.each(val.yenByTargetName,function(key,val2) {
-	    			  $('.result').append("<div><span>"+key+"さんから"+val2+"円を</span></div>")
+	    			  $('.result').append("<div><span>"+key+"さんから"+val2.toLocaleString()+"円を</span></div>")
 				  })
 				  $('.result').append("<span>貰ってください</span>")
 			  })
