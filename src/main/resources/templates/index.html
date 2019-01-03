@@ -1,65 +1,83 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"><meta charset="UTF-8">
-<title>Warikan</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/css/index.css" th:href="@{/css/index.css}">
+  <meta charset="UTF-8">
+  <style>
+  
+  </style>
+<title>TATEKAE</title>
 </head>
 <body>
-<h1>Warikan</h1>
-<h2>沢山の人との割り勘時に利用してください</h2>
 <div class="container">
+    <h1 id="theme">TATEKAE</h1>
+    <h4 id="sub">旅費の立替金を精算するための世界一シンプルなツール</h4>
     <div class="panel panel-default">
-      <div class="panel-heading">フォーム1</div>
       <div class="panel-body">
-        <form class="form-horizontal">
+        <form role="form" id="postForm" class="form-horizontal" th:action="@{/result}" th:object="${YenByPersonListForm}" method="post">
           <div class="form-group">
-            <label class="col-sm-2 control-label">人数を入力</label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text">
+              <label class="control-label">人数を入力してください。</label>
+              <div class="">
+              <input class="form-control" type="number" step="1" maxlength="2" id="number-of-people" placeholder="人数">
+            </div>
+          </div>
+          <div class="form-group inputYenArea" style="display:none">
+            <label class="control-label">参加者名を入力してください。</label>
+            <p>名前と金額は必須入力。用途は任意入力です。</p>
+            <div class="" id="template-show"></div>
+          </div>
+          <div class="form-group">
+            <div class="">
+              <span id="messageArea"></span>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">項目2</label>
-            <div class="col-sm-10 radio">
-              <label><input type="radio" name="radio">選択肢1</label>
-              <label><input type="radio" name="radio">選択肢2</label>
-              <label><input type="radio" name="radio">選択肢3</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">項目3</label>
-            <div class="col-sm-10 checkbox">
-              <label><input type="checkbox" name="checkbox">選択肢1</label>
-              <label><input type="checkbox" name="checkbox">選択肢2</label>
-              <label><input type="checkbox" name="checkbox">選択肢3</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">項目4</label>
-            <div class="col-sm-10">
-              <select class="form-control">
-                <option>選択肢1</option>
-                <option>選択肢2</option>
-                <option>選択肢3</option>
-                <option>選択肢4</option>
-                <option>選択肢5</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-default">送信</button>
+            <div class="submitButtonArea">
+              <button style="display:none" type="button" class="btn postInfo btn-success col-sm-3 offset-sm-9"><i class="fas fa-calculator"></i> 計算！</button>
             </div>
           </div>
         </form>
+        
+        <div id="template" style="display:none">
+          <div class="template-item form-group">
+            <div class="person">
+              <div class="form-inline personRow">
+                <input class="peopleName form-control col-sm-2" type="text" maxlength="10" name="yenByPersonForm[_number_].name" data-number="_number_" data-col="_col_" value="" placeholder="名前" required="required"><span class="col-sm-1">さん</span>
+                <input class="use form-control col-sm-2" type="text" maxlength="20" name="yenByPersonForm[_number_].use[_col_]" data-number="_number_" data-col="_col_" value="" placeholder="用途"><span class="col-sm-1">に</span>
+                <input class="yen form-control col-sm-2" type="number" step="100" maxlength="10" name="yenByPersonForm[_number_].yen[_col_]" data-number="_number_" data-col="_col_" value="0" required="required"><span class="col-sm-1">円</span>
+                <button type="button" class="btn btn-success addCol col-sm-3"><i class="fas fa-plus"></i> 行追加</button>
+              </div>
+            </div>
+          </div>
+          <div class="template-item-add form-group">
+            <div class="form-inline personRow">
+              <input class="use form-control offset-sm-3 col-sm-2" type="text" maxlength="20" name="yenByPersonForm[_number_].use[_col_]" data-number="_number_" data-col="_col_" value="" placeholder="用途"><span class="col-sm-1">に</span>
+              <input class="yen form-control col-sm-2" type="number" step="100" maxlength="10" name="yenByPersonForm[_number_].yen[_col_]" data-number="_number_" data-col="_col_" value="0" required="required"><span class="col-sm-1">円</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="result">
+        <div th:inline="text" th:each="payByPerson:${resultForm?.payByPersonList}">
+          <span>[[${payByPerson.name}]]さんは</span>
+          <div th:each="pay:${payByPerson.yenByTargetName}">
+            <span>[[${pay.key}]]さんから</span>
+            <span>[[${pay.value}]]円を</span>
+          </div>
+          <span>受け取ってください</span>
+        </div>
       </div>
     </div>
   </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-  <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script type='text/javascript' th:src="@{/js/validator.js}" src="/js/validator.js"></script>
+<script type='text/javascript' th:src="@{/js/index.js}" src="/js/index.js"></script>
 </body>
 </html>

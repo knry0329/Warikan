@@ -1,0 +1,32 @@
+  body{
+    background-color:honeydew;
+  }
+  
+  #theme{
+    font-family: cursive;
+  }
+  
+  .container{
+    padding:20px;
+  }
+  
+  .person{
+    background-color:lightgreen;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:5px;
+  }
+  
+  .personRow{
+  	padding-top:10px;
+  	padding-bottom:10px;
+  }
+  
+  .personRow span{
+  margin-top:5px;
+  margin-bottom:5px;
+  }
+  
+  .submitButtonArea{
+    padding:10px;
+  }
