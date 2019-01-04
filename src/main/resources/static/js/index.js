@@ -13,7 +13,8 @@ $(function(){
 
   $('#template-show').on('click', '.addCol', function() {
 	var $person = $(this).parents('.person');
-	var $button = $(this)
+	var $personRow = $(this).parents('.personRow');
+	var $button = $(this);
     var col = $person.find('.yen:last').data('col');
     var number = $person.find('.yen:last').attr('data-number');
     var template = $('.template-item-add').html().replace(/_number_/g, number).replace(/_col_/g, col+1); //テンプレートを変数に格納して、[_number_]の部分をreplaceで順になるように置き換え
@@ -21,7 +22,7 @@ $(function(){
     $person.append(template);
     //buttonの位置を最後尾に
     $button.remove();
-    $person.append($button);
+    $personRow.next().append($button);
   });
   
   $('.postInfo').on('click', function() {

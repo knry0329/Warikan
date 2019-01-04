@@ -14,9 +14,23 @@
 <title>TATEKAE</title>
 </head>
 <body>
-<div class="container">
-    <h1 id="theme">TATEKAE</h1>
-    <h4 id="sub">旅費の立替金を精算するための世界一シンプルなツール</h4>
+<header>
+    <div class="container">
+      <div class="header-left">
+        <span class="theme">TATEKAE</span>
+      </div>
+      <!-- ここにメニューアイコンを追加してください -->
+      
+
+      <div class="header-right">
+        <a href="#" class="login">新規登録（10秒！）</a>
+        <a href="#" class="login">ログイン</a>
+      </div>
+    </div>
+</header>
+<div class="container container-main">
+    <h1 class="theme">TATEKAE</h1>
+    <h4 class="sub">旅費の立替金を精算するための世界一シンプルなツール</h4>
     <div class="panel panel-default">
       <div class="panel-body">
         <form role="form" id="postForm" class="form-horizontal" th:action="@{/result}" th:object="${YenByPersonListForm}" method="post">
