@@ -22,15 +22,21 @@
       <!-- ここにメニューアイコンを追加してください -->
       
 
-      <div class="header-right">
+      <div class="header-right"  th:inline="text">
+      <th:block th:if="${session?.user}==null">
         <a href="#" id="openModal" class="login">新規登録（10秒！）</a>
-        <a href="#" class="login">ログイン</a>
+        <a href="#" id="openModalLogin" class="login">ログイン</a>
+      </th:block>
+      <th:block th:if="${session?.user}!=null">
+        <a href="#" class="login"><i class="fas fa-user"></i> [[${session?.user}]]</a>
+        <a href="logout" class="login">ログアウト</a>
+      </th:block>
       </div>
     </div>
 </header>
 <div class="container container-main">
     <h1 class="theme">TATEKAE</h1>
-    <h4 class="sub">旅費の立替金を精算するための世界一シンプルなツール</h4>
+    <p>旅費の立替金を精算するための世界一シンプルなツールです</p>
     <div class="panel panel-default">
       <div class="panel-body">
         <form role="form" id="postForm" class="form-horizontal" th:action="@{/result}" th:object="${YenByPersonListForm}" method="post">
@@ -41,8 +47,13 @@
             </div>
           </div>
           <div class="form-group inputYenArea" style="display:none">
-            <label class="control-label">参加者名を入力してください。</label>
-            <p>名前と金額は必須入力。用途は任意入力です。</p>
+            <div class="description col-sm-10">
+              <p class="" >参加者名を入力してください。<br />
+                                       名前と金額は必須入力。用途は任意入力です。</p>
+            </div>
+            <div class="tmpSave col-sm-2" th:if="${session?.user}!=null">
+              <button type="button" class="btn btn-outline-success postTmpInfo"><i class="fas fa-plus"></i> 一時保存</button>
+            </div>
             <div class="" id="template-show"></div>
           </div>
           <div class="form-group">
@@ -91,6 +102,25 @@
                   </form>
                 </div>
                 <div id="closeModal" class="closeModal">
+                  ×
+                </div>
+             </div>
+           </section>
+         <!-- モーダルエリアここまで -->     
+          <!-- モーダルエリアここから -->
+            <section id="modalAreaLogin" class="modalArea signup">
+              <div id="modalBgLogin" class="modalBg"></div>
+              <div class="modalWrapper">
+                <div class="modalContents">
+                  <h2>ログイン</h2>
+                  <div id="loginMessage"></div>
+                  <form id="loginForm" method="post" action="/login" th:object="${formModel}">
+                    <input class="form-control" type="text" pattern="^[0-9A-Za-z]+$" maxlength="20" name="user_id" value="" placeholder="ユーザID（半角英数）" />
+                    <input class="form-control" type="password" pattern="^[0-9A-Za-z]+$" maxlength="20" name="password" value="" placeholder="パスワード（半角英数）" />
+                    <button id="loginButton" type="button" class="btn btn-outline-success">ログイン</button>
+                  </form>
+                </div>
+                <div id="closeModalLogin" class="closeModal">
                   ×
                 </div>
              </div>

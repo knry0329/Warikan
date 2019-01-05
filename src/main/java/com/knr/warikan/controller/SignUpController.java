@@ -1,6 +1,8 @@
 package com.knr.warikan.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,8 @@ public class SignUpController {
 
 	@Autowired
 	MUserRepository repository;
+	@Autowired
+	HttpSession session;
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	@Transactional(readOnly=false)
@@ -27,7 +31,7 @@ public class SignUpController {
 		
 		repository.saveAndFlush(mUser);
 
-		Iterable<MUserEntity> list = repository.findAll();
+		session.setAttribute("user", mUser.getUser_id());
 
 		return "index";
 	}

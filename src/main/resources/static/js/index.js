@@ -3,6 +3,7 @@ $(function(){
 	$('.inputYenArea').css('display','');
 	$('.postInfo').css('display','');
     var peopleVal = $('#number-of-people').val(); //人数を取得
+    $('#template-show').find('.person').remove(); // 初期化
     $('#template-show').find('.template-item').remove(); // 初期化
     $('#template-show').find('.template-item-add').remove(); // 初期化
     for (var i = 0; i < peopleVal; i++) {
@@ -58,11 +59,34 @@ $(function(){
 		  
 	  });
   });
+
+  $('.postTmpInfo').on('click', function() {
+	  var $form = $('#postForm');
+	  $.ajax({
+		  url:'/tmpsave',
+		  type:'POST',
+		  data:$form.serialize(),
+	  })
+	  .done( (data) => {
+		  console.log(data);
+		  console.log(data.flg);
+	  })
+	  .fail( (data) => {
+		  console.log(data);
+	  })
+	  .always( (data) => {
+		  
+	  });
+  });
+
   
   $('#signUpButton').click(function(){
 	  $('#signUpMessage').text('');
 	  var $form = $('#signUpForm');
-	  var flg = true;
+	  if(!validationSignUp()) {
+		  $('#signUpMessage').text("必須項目を入力してください。")
+		  return;
+	  }
 	  $.ajax({
 		  url:'/signupCheck',
 		  type:'POST',
@@ -82,11 +106,34 @@ $(function(){
 	  .always( (data) => {
 		  
 	  });
-	  if(!flg) {
-		  return false;
-	  } else {
-		  return true;
+  });
+  
+  $('#loginButton').click(function(){
+	  $('#loginMessage').text('');
+	  if(!validationLogin()) {
+		  $('#loginMessage').text("必須項目を入力してください。")
+		  return;
 	  }
+	  var $form = $('#loginForm');
+	  $.ajax({
+		  url:'/loginCheck',
+		  type:'POST',
+		  data:$form.serialize(),
+	  })
+	  .done( (data) => {
+		  console.log(data);
+		  if(data.flg) {
+			  $('#loginForm').submit();
+		  } else {
+			  $('#loginMessage').text('ログインに失敗しました。');
+		  }
+	  })
+	  .fail( (data) => {
+		  console.log(data);
+	  })
+	  .always( (data) => {
+		  
+	  });
   });
   
   function validation() {
@@ -105,6 +152,28 @@ $(function(){
 	  })
 	  return flg;
   }
+  function validationSignUp() {
+	  var flg = true;
+	  $('#signUpForm input').each(function(i, e) {
+		  if(this.value === "") {
+			  flg = false;
+			  e.style.border = "solid 1px red";
+		  }
+	  })
+	  return flg;
+  }
+  function validationLogin() {
+	  var flg = true;
+	  $('#loginForm input').each(function(i, e) {
+		  if(this.value === "") {
+			  flg = false;
+			  e.style.border = "solid 1px red";
+		  }
+	  })
+	  return flg;
+  }
+
+  
   function initialize() {
 	  $('#messageArea').text("")
 	  $('.result').text("")
@@ -121,6 +190,12 @@ $(function(){
   });
   $('#closeModal , #modalBg').click(function(){
     $('#modalArea').fadeOut();
+  });
+  $('#openModalLogin').click(function(){
+      $('#modalAreaLogin').fadeIn();
+  });
+  $('#closeModalLogin , #modalBgLogin').click(function(){
+    $('#modalAreaLogin').fadeOut();
   });
   
 });
