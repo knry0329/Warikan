@@ -59,6 +59,36 @@ $(function(){
 	  });
   });
   
+  $('#signUpButton').click(function(){
+	  $('#signUpMessage').text('');
+	  var $form = $('#signUpForm');
+	  var flg = true;
+	  $.ajax({
+		  url:'/signupCheck',
+		  type:'POST',
+		  data:$form.serialize(),
+	  })
+	  .done( (data) => {
+		  console.log(data);
+		  if(data.flg) {
+			  $('#signUpForm').submit();
+		  } else {
+			  $('#signUpMessage').text('すでに使用されているIDです。');
+		  }
+	  })
+	  .fail( (data) => {
+		  console.log(data);
+	  })
+	  .always( (data) => {
+		  
+	  });
+	  if(!flg) {
+		  return false;
+	  } else {
+		  return true;
+	  }
+  });
+  
   function validation() {
 	  var flg = true;
 	  $('form .peopleName').each(function(i, e) {
@@ -85,5 +115,12 @@ $(function(){
 		  e.style.border = "solid 1px #ced4da";
 	  })
   }
+  
+  $('#openModal').click(function(){
+      $('#modalArea').fadeIn();
+  });
+  $('#closeModal , #modalBg').click(function(){
+    $('#modalArea').fadeOut();
+  });
   
 });

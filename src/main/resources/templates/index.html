@@ -23,7 +23,7 @@
       
 
       <div class="header-right">
-        <a href="#" class="login">新規登録（10秒！）</a>
+        <a href="#" id="openModal" class="login">新規登録（10秒！）</a>
         <a href="#" class="login">ログイン</a>
       </div>
     </div>
@@ -52,7 +52,7 @@
           </div>
           <div class="form-group">
             <div class="submitButtonArea">
-              <button style="display:none" type="button" class="btn postInfo btn-success col-sm-3 offset-sm-9"><i class="fas fa-calculator"></i> 計算！</button>
+              <button style="display:none" type="button" class="btn postInfo btn-outline-success col-sm-3 offset-sm-9"><i class="fas fa-calculator"></i> 計算！</button>
             </div>
           </div>
         </form>
@@ -64,7 +64,7 @@
                 <input class="peopleName form-control col-sm-2" type="text" maxlength="10" name="yenByPersonForm[_number_].name" data-number="_number_" data-col="_col_" value="" placeholder="名前" required="required"><span class="col-sm-1">さん</span>
                 <input class="use form-control col-sm-2" type="text" maxlength="20" name="yenByPersonForm[_number_].use[_col_]" data-number="_number_" data-col="_col_" value="" placeholder="用途"><span class="col-sm-1">に</span>
                 <input class="yen form-control col-sm-2" type="number" step="100" maxlength="10" name="yenByPersonForm[_number_].yen[_col_]" data-number="_number_" data-col="_col_" value="0" required="required"><span class="col-sm-1">円</span>
-                <button type="button" class="btn btn-success addCol col-sm-3"><i class="fas fa-plus"></i> 行追加</button>
+                <button type="button" class="btn btn-outline-success addCol col-sm-3"><i class="fas fa-plus"></i> 行追加</button>
               </div>
             </div>
           </div>
@@ -75,6 +75,28 @@
             </div>
           </div>
         </div>
+          
+          <!-- モーダルエリアここから -->
+            <section id="modalArea" class="modalArea signup">
+              <div id="modalBg" class="modalBg"></div>
+              <div class="modalWrapper">
+                <div class="modalContents">
+                  <h2>新規登録</h2>
+                  <p>ユーザIDを登録しておくことで、金額の一時保存、呼び出しができます。 </p>
+                  <div id="signUpMessage"></div>
+                  <form id="signUpForm" method="post" action="/signup" th:object="${formModel}">
+                    <input class="form-control" type="text" pattern="^[0-9A-Za-z]+$" maxlength="20" name="user_id" value="" placeholder="ユーザID（半角英数）" />
+                    <input class="form-control" type="password" pattern="^[0-9A-Za-z]+$" maxlength="20" name="password" value="" placeholder="パスワード（半角英数）" />
+                    <button id="signUpButton" type="button" class="btn btn-outline-success">新規登録</button>
+                  </form>
+                </div>
+                <div id="closeModal" class="closeModal">
+                  ×
+                </div>
+             </div>
+           </section>
+         <!-- モーダルエリアここまで -->     
+        
       </div>
       <div class="result">
         <div th:inline="text" th:each="payByPerson:${resultForm?.payByPersonList}">

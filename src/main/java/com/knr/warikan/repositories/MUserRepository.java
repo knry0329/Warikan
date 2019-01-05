@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.knr.warikan.entity.MUserEntity;
 
 @Repository
-public interface MUserRepository extends JpaRepository<MUserEntity, Long> {
+public interface MUserRepository extends JpaRepository<MUserEntity, String> {
 
 }
