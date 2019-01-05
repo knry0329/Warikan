@@ -34,7 +34,7 @@
       </div>
     </div>
 </header>
-<div class="container container-main">
+<div class="container container-main"  th:inline="text">
     <h1 class="theme">TATEKAE</h1>
     <p>旅費の立替金を精算するための世界一シンプルなツールです</p>
     <div class="panel panel-default">
@@ -43,19 +43,73 @@
           <div class="form-group">
               <label class="control-label">人数を入力してください。</label>
               <div class="">
-              <input class="form-control" type="number" step="1" maxlength="2" id="number-of-people" placeholder="人数">
+              <input class="form-control" type="number" step="1" maxlength="2" id="number-of-people" placeholder="人数" th:value="${personInfoCnt}?: ''">
             </div>
           </div>
+          
+          <th:block th:if="${personInfo} == null">
           <div class="form-group inputYenArea" style="display:none">
-            <div class="description col-sm-10">
-              <p class="" >参加者名を入力してください。<br />
+            <div class="description">
+              <p  class="col-sm-10" >参加者名を入力してください。<br />
                                        名前と金額は必須入力。用途は任意入力です。</p>
-            </div>
-            <div class="tmpSave col-sm-2" th:if="${session?.user}!=null">
-              <button type="button" class="btn btn-outline-success postTmpInfo"><i class="fas fa-plus"></i> 一時保存</button>
+            <th:block class="tmpSave" th:if="${session?.user}!=null">
+              <button type="button" class="btn btn-outline-success postTmpInfo col-sm-2"><i class="fas fa-plus"></i> 一時保存</button>
+            </th:block>
             </div>
             <div class="" id="template-show"></div>
           </div>
+          </th:block>
+
+          <th:block th:if="${personInfo} != null">
+          <div class="form-group inputYenArea">
+            <div class="description">
+              <p  class="col-sm-10" >参加者名を入力してください。<br />
+                                       名前と金額は必須入力。用途は任意入力です。</p>
+            <th:block class="tmpSave" th:if="${session?.user}!=null">
+              <button type="button" class="btn btn-outline-success postTmpInfo col-sm-2"><i class="fas fa-plus"></i> 一時保存</button>
+            </th:block>
+            </div>
+            <div class="" id="template-show">
+              <div class="person" th:each="byPerson, idx : ${personInfo.yenByPersonForm}">
+                <th:block th:each="yen,stat : ${byPerson.yen}">
+                  <th:block th:if="${stat.index}==0">
+                    <div class="form-inline personRow">
+                      <input class="peopleName form-control col-sm-2" type="text" maxlength="10" th:name="'yenByPersonForm['+${idx.index}+'].name'" th:data-number="${idx.index}" th:data-col="${stat.index}" th:value="${byPerson.name}" placeholder="名前" required="required"><span class="col-sm-1">さん</span>
+                      <input class="use form-control col-sm-2" type="text" maxlength="20" th:name="'yenByPersonForm['+${idx.index}+'].use['+${stat.index}+']'" th:data-number="${idx.index}" th:data-col="${stat.index}" th:value="${byPerson.use[__${stat.index}__]}" placeholder="用途"><span class="col-sm-1">に</span>
+                      <input class="yen form-control col-sm-2" type="number" step="100" maxlength="10" th:name="'yenByPersonForm['+${idx.index}+'].yen['+${stat.index}+']'" th:data-number="${idx.index}"  th:data-col="${stat.index}" th:value="${yen}" required="required"><span class="col-sm-1">円</span>
+                      <th:block th:if="${stat.size}==1">
+                        <button type="button" class="btn btn-outline-success addCol col-sm-3"><i class="fas fa-plus"></i> 行追加</button>
+                      </th:block>
+                    </div>
+                  </th:block>
+                  <th:block th:if="${stat.index}!=0">
+                    <div class="form-inline personRow">
+                      <input class="use form-control offset-sm-3 col-sm-2" type="text" maxlength="20"  th:name="'yenByPersonForm['+${idx.index}+'].use['+${stat.index}+']'" th:data-number="${idx.index}" th:data-col="${stat.index}" th:value="${byPerson.use[__${stat.index}__]}" placeholder="用途"><span class="col-sm-1">に</span>
+                      <input class="yen form-control col-sm-2" type="number" step="100" maxlength="10" th:name="'yenByPersonForm['+${idx.index}+'].yen['+${stat.index}+']'" th:data-number="${idx.index}" th:data-col="${stat.index}" th:value="${yen}" required="required"><span class="col-sm-1">円</span>
+                      <th:block th:if="${stat.count}==${stat.size}">
+                      <button type="button" class="btn btn-outline-success addCol col-sm-3"><i class="fas fa-plus"></i> 行追加</button>
+                      </th:block>
+                    </div>
+                  </th:block>
+                </th:block>
+              </div>
+            </div>
+          </div>
+          </th:block>
+          
+          <th:block th:if="${personInfo} != null">
+          <div class="form-group">
+            <div class="">
+              <span id="messageArea"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="submitButtonArea">
+              <button type="button" class="btn postInfo btn-outline-success col-sm-3 offset-sm-9"><i class="fas fa-calculator"></i> 計算！</button>
+            </div>
+          </div>
+          </th:block>
+          <th:block th:if="${personInfo} == null">
           <div class="form-group">
             <div class="">
               <span id="messageArea"></span>
@@ -66,6 +120,7 @@
               <button style="display:none" type="button" class="btn postInfo btn-outline-success col-sm-3 offset-sm-9"><i class="fas fa-calculator"></i> 計算！</button>
             </div>
           </div>
+          </th:block>
         </form>
         
         <div id="template" style="display:none">

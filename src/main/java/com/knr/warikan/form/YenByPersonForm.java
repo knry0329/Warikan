@@ -1,6 +1,6 @@
 package com.knr.warikan.form;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.Size;
 
@@ -9,9 +9,9 @@ public class YenByPersonForm {
 	@Size(min = 1, max = 10)
 	private String name;
 	@Size(min = 1, max = 20)
-	private ArrayList<String> use;
+	private List<String> use;
 	@Size(min = 1, max = 20)
-	private ArrayList<Integer> yen;
+	private List<Integer> yen;
 		
 	public String getName() {
 		return name;
@@ -19,16 +19,16 @@ public class YenByPersonForm {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public ArrayList<String> getUse() {
+	public List<String> getUse() {
 		return use;
 	}
-	public void setUse(ArrayList<String> use) {
+	public void setUse(List<String> use) {
 		this.use = use;
 	}
-	public ArrayList<Integer> getYen() {
+	public List<Integer> getYen() {
 		return yen;
 	}
-	public void setYen(ArrayList<Integer> yen) {
+	public void setYen(List<Integer> yen) {
 		this.yen = yen;
 	}
 	

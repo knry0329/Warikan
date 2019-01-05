@@ -19,7 +19,7 @@
   }
   
   .person{
-    border:solid lightgreen;
+    border:solid 2px lightgreen;
     border-radius: 10px;
     padding:10px;
     margin-top:5px;

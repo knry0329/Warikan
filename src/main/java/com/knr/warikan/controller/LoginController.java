@@ -1,6 +1,5 @@
 package com.knr.warikan.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.knr.warikan.entity.MUserEntity;
 import com.knr.warikan.form.FlgForm;
 import com.knr.warikan.form.LoginForm;
+import com.knr.warikan.form.YenByPersonListForm;
 import com.knr.warikan.repositories.MUserRepository;
+import com.knr.warikan.service.TempSaveService;
 
 @Controller
 public class LoginController {
@@ -25,12 +26,18 @@ public class LoginController {
 	MUserRepository repository;
 	@Autowired
 	HttpSession session;
+	@Autowired
+	TempSaveService service;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute LoginForm form) {
+	public String login(@ModelAttribute LoginForm form, Model model) {
 		
-//		Iterable<MUserEntity> list = repository.findAll();
 		session.setAttribute("user", form.getUser_id());
+		
+		YenByPersonListForm resultForm = service.restore();
+		System.out.println("hoge");
+		model.addAttribute("personInfo", resultForm);
+		model.addAttribute("personInfoCnt", resultForm.getYenByPersonForm().size());
 
 		return "index";
 	}

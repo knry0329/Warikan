@@ -1,19 +1,19 @@
 package com.knr.warikan.form;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
 public class YenByPersonListForm {
 
 	@Valid
-	private ArrayList<YenByPersonForm> yenByPersonForm;
+	private List<YenByPersonForm> yenByPersonForm;
 
-	public ArrayList<YenByPersonForm> getYenByPersonForm() {
+	public List<YenByPersonForm> getYenByPersonForm() {
 		return yenByPersonForm;
 	}
 
-	public void setYenByPersonForm(ArrayList<YenByPersonForm> yenByPersonForm) {
+	public void setYenByPersonForm(List<YenByPersonForm> yenByPersonForm) {
 		this.yenByPersonForm = yenByPersonForm;
 	}
 
