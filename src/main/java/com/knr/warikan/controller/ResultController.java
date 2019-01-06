@@ -24,14 +24,9 @@ public class ResultController {
 	@RequestMapping(value = "/result", method = RequestMethod.POST)
 	public ResultForm result(@ModelAttribute @Validated YenByPersonListForm form, BindingResult bindingResult, Model model) {
 		
-		System.out.println("**************fordeBug");
-		
 		ResultForm resultForm = service.warikanLogic(form);
 		model.addAttribute(resultForm);
 
-		System.out.println("**************fordeBug");
-
-//		return "index";
 		return resultForm;
 	}
 }

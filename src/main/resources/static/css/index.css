@@ -1,10 +1,21 @@
   body{
-    background-color:honeydew;
+    background-color:white;
     color: darkslategrey;
+  }
+  
+  p {
+  color: #494949;/*文字色*/
+  background: transparent;/*背景透明に*/
+  border-left: solid 5px #ff007e;/*左線*/
+  padding-left:10px;
   }
   
   .theme{
     font-family: cursive;
+  }
+  
+  header .theme {
+    color:#ff007e;
   }
   
   .container{
@@ -15,11 +26,19 @@
   }
   
   .inputYenArea{
-    margin-top:50px;
+    margin-top:20px;
+  }
+
+  .inputQtyArea{
+    margin-top:20px;
+  }
+  
+  #tmpSaveMessageArea span {
+    border-bottom: solid 1px #ff007e;
   }
   
   .person{
-    border:solid 2px lightgreen;
+    border:solid 2px #ff007e;
     border-radius: 10px;
     padding:10px;
     margin-top:5px;
@@ -100,6 +119,19 @@ header .theme {
   max-width: 500px;
   padding: 20px 30px;
   background-color: #fff;
+  border-radius:10px;
+}
+
+.resultButtonArea {
+  margin-top:10px;
+  text-align:center;
+}
+.resultPerson {
+  margin-bottom:10px;
+}
+
+.resultRow {
+  border-bottom: solid 3px #ff007e;
 }
 
 .closeModal {
@@ -121,4 +153,26 @@ header .theme {
 	color:red;
 }
 
+#tmpSaveMessageArea {
+	margin-bottom:10px;
+}
+
+#loading {
+  display: table;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  opacity: 0.8;
+}
+ 
+#loading .loadingMsg {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 140px;
+  background: url("/image/image.gif") center center no-repeat;
+}
 

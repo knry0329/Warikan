@@ -1,4 +1,5 @@
 $(function(){
+  //人数入力後
   $('#number-of-people').on("change", function(){
 	$('.inputYenArea').css('display','');
 	$('.postInfo').css('display','');
@@ -11,7 +12,7 @@ $(function(){
       $('#template-show').append(template); //appendで#template-showの中にtemplateを追加
     }
   });
-
+  //行追加押下後
   $('#template-show').on('click', '.addCol', function() {
 	var $person = $(this).parents('.person');
 	var $personRow = $(this).parents('.personRow');
@@ -26,6 +27,7 @@ $(function(){
     $personRow.next().append($button);
   });
   
+  //計算押下後
   $('.postInfo').on('click', function() {
 	  initialize();
 	  if(!validation()) {
@@ -40,17 +42,23 @@ $(function(){
 	  })
 	  .done( (data) => {
 		  console.log(data);
+//		  $('.result').append("<p>計算結果</p>");
 		  if(data.payByPersonList.length===0) {
 			  $('.result').append("<div><span>同じ金額を支払っているので、精算は不要です。</span></div>")
 		  } else {
 			  $.each(data.payByPersonList,function(index,val) {
-				  $('.result').append("<div><span>"+val.name+"さんは</span></div>")
+				  $('.result').append("<div class=\"resultPerson\">")
+				  $('.result').append("<div><span class=\"resultRow\">"+val.name+"さん</span> <span>は</span></div>")
 				  $.each(val.yenByTargetName,function(key,val2) {
-	    			  $('.result').append("<div><span>"+key+"さんから"+val2.toLocaleString()+"円を</span></div>")
+	    			  $('.result').append("<div><span class=\"resultRow\">"+key+"さん</span><span> から </span><span class=\"resultRow\">"+val2.toLocaleString()+"円</span><span> を</span></div>")
 				  })
 				  $('.result').append("<span>貰ってください</span>")
+				  $('.result').append("</div>")
 			  })
 		  }
+	      $('#modalAreaResult').fadeIn();
+
+//		  $("html,body").animate({scrollTop:$('.result').offset().top});
 	  })
 	  .fail( (data) => {
 		  console.log(data);
@@ -60,7 +68,10 @@ $(function(){
 	  });
   });
 
+  //一時保存押下後
   $('.postTmpInfo').on('click', function() {
+	  $('#tmpSaveMessageArea').text('');
+	  dispLoading("処理中...");
 	  var $form = $('#postForm');
 	  $.ajax({
 		  url:'/tmpsave',
@@ -68,18 +79,21 @@ $(function(){
 		  data:$form.serialize(),
 	  })
 	  .done( (data) => {
-		  console.log(data);
-		  console.log(data.flg);
+		  if(data.flg) {
+			  $('#tmpSaveMessageArea').html('<span>一時保存しました。</span>');
+		  } else {
+			  $('#tmpSaveMessageArea').html('<span>一時保存に失敗しました。<br />'+data.msg+'</span>');
+		  }
 	  })
 	  .fail( (data) => {
 		  console.log(data);
 	  })
 	  .always( (data) => {
-		  
+		  removeLoading();
 	  });
   });
 
-  
+  //新規登録押下後
   $('#signUpButton').click(function(){
 	  $('#signUpMessage').text('');
 	  var $form = $('#signUpForm');
@@ -108,6 +122,7 @@ $(function(){
 	  });
   });
   
+  //ログイン押下後
   $('#loginButton').click(function(){
 	  $('#loginMessage').text('');
 	  if(!validationLogin()) {
@@ -136,6 +151,7 @@ $(function(){
 	  });
   });
   
+  //計算時のバリデーションチェック
   function validation() {
 	  var flg = true;
 	  $('form .peopleName').each(function(i, e) {
@@ -152,6 +168,7 @@ $(function(){
 	  })
 	  return flg;
   }
+  //新規登録時のバリデーションチェック
   function validationSignUp() {
 	  var flg = true;
 	  $('#signUpForm input').each(function(i, e) {
@@ -162,6 +179,7 @@ $(function(){
 	  })
 	  return flg;
   }
+  //ログイン時のバリデーションチェック
   function validationLogin() {
 	  var flg = true;
 	  $('#loginForm input').each(function(i, e) {
@@ -173,9 +191,10 @@ $(function(){
 	  return flg;
   }
 
-  
+  //計算押下時、CSSをリセット
   function initialize() {
 	  $('#messageArea').text("")
+	  $('#tmpSaveMessageArea').text("");
 	  $('.result').text("")
 	  $('form .peopleName').each(function(i, e) {
 		  e.style.border = "solid 1px #ced4da";
@@ -185,6 +204,7 @@ $(function(){
 	  })
   }
   
+  //モーダル開閉
   $('#openModal').click(function(){
       $('#modalArea').fadeIn();
   });
@@ -197,5 +217,38 @@ $(function(){
   $('#closeModalLogin , #modalBgLogin').click(function(){
     $('#modalAreaLogin').fadeOut();
   });
+  $('#openModalResult').click(function(){
+      $('#modalAreaResult').fadeIn();
+  });
+  $('#closeModalResult , #modalBgResult').click(function(){
+    $('#modalAreaResult').fadeOut();
+  });
+  $('.modalBgResult').click(function(){
+	    $('#modalAreaResult').fadeOut();
+	  });
+  
+  /* ------------------------------
+  Loading イメージ表示関数
+  引数： msg 画面に表示する文言
+  ------------------------------ */
+ function dispLoading(msg){
+   // 引数なし（メッセージなし）を許容
+   if( msg == undefined ){
+     msg = "";
+   }
+   // 画面表示メッセージ
+   var dispMsg = "<div class='loadingMsg'>" + msg + "</div>";
+   // ローディング画像が表示されていない場合のみ出力
+   if($("#loading").length == 0){
+     $("body").append("<div id='loading'>" + dispMsg + "</div>");
+   }
+ }
+  
+ /* ------------------------------
+  Loading イメージ削除関数
+  ------------------------------ */
+ function removeLoading(){
+   $("#loading").remove();
+ }
   
 });

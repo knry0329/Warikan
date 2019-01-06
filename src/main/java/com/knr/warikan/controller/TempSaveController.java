@@ -26,10 +26,13 @@ public class TempSaveController {
 	@Transactional(readOnly=false)
 	public FlgForm result(@ModelAttribute @Validated YenByPersonListForm form, BindingResult bindingResult, Model model) {
 	
-		service.tempSave(form);
+		boolean flg = service.tempSave(form);
 		
 		FlgForm flgForm = new FlgForm();
-		flgForm.setFlg(true);
+		flgForm.setFlg(flg);
+		if(!flg) {
+			flgForm.setMsg("セッションタイム・アウトしました。");
+		}
 		model.addAttribute(flgForm);
 
 		return flgForm;

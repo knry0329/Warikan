@@ -25,8 +25,12 @@ public class TempSaveService {
 	@Autowired
 	TExpenceRepository repository;
 
-	public void tempSave(YenByPersonListForm form) {
-		String userId = (String) session.getAttribute("user");
+	public boolean tempSave(YenByPersonListForm form) {
+		Object obj = session.getAttribute("user");
+		if(obj == null) {
+			return false;
+		}
+		String userId = (String)obj;
 		repository.deleteByKeyUserId(userId);
 		
 		List<TExpenceEntity> tExpenceEntityList = new ArrayList<TExpenceEntity>();
@@ -46,6 +50,7 @@ public class TempSaveService {
 				rowId++;
 			}
 		}
+		return true;
 	}
 	
 	public YenByPersonListForm restore() {

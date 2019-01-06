@@ -35,7 +35,6 @@ public class LoginController {
 		session.setAttribute("user", form.getUser_id());
 		
 		YenByPersonListForm resultForm = service.restore();
-		System.out.println("hoge");
 		model.addAttribute("personInfo", resultForm);
 		model.addAttribute("personInfoCnt", resultForm.getYenByPersonForm().size());
 
