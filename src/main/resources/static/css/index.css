@@ -176,3 +176,9 @@ header .theme {
   background: url("/image/image.gif") center center no-repeat;
 }
 
+@media screen and (max-width: 575px) {
+	.addCol {
+	  margin-top:20px;
+	}
+}
+
