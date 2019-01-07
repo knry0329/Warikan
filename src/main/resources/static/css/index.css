@@ -14,10 +14,6 @@
     font-family: cursive;
   }
   
-  header .theme {
-    color:#ff007e;
-  }
-  
   .container{
   }
   
@@ -79,6 +75,7 @@
 
 header .theme {
 	line-height:65px;
+    color:#ff007e;
 }
 
 .header-right a {
@@ -145,6 +142,10 @@ header .theme {
 	margin:5px 0px;
 }
 
+.login input {
+	margin:5px 0px;
+}
+
 #signUpMessage {
 	color:red;
 }
@@ -179,6 +180,9 @@ header .theme {
 @media screen and (max-width: 575px) {
 	.addCol {
 	  margin-top:20px;
+	}
+	.peopleName {
+	  margin-bottom:20px;
 	}
 }
 
