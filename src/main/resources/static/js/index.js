@@ -41,24 +41,34 @@ $(function(){
 		  data:$form.serialize(),
 	  })
 	  .done( (data) => {
+		  var lineURL = 'http://line.me/R/msg/text/?';
+		  var warikanURL = location.protocol + '//' + location.host;
+		  var lineMsg = '';
+		  var br = '%0D%0A';
 		  console.log(data);
-//		  $('.result').append("<p>計算結果</p>");
 		  if(data.payByPersonList.length===0) {
-			  $('.result').append("<div><span>同じ金額を支払っているので、精算は不要です。</span></div>")
+			  var noPayMsg = '同じ金額を支払っているので、精算は不要です。';
+			  lineMsg += noPayMsg;
+			  $('.result').append("<div><span>" + noPayMsg + "</span></div>")
+			  
 		  } else {
 			  $.each(data.payByPersonList,function(index,val) {
 				  $('.result').append("<div class=\"resultPerson\">")
 				  $('.result').append("<div><span class=\"resultRow\">"+val.name+"さん</span> <span>は</span></div>")
+				  lineMsg += val.name+"さん は" + br;
 				  $.each(val.yenByTargetName,function(key,val2) {
 	    			  $('.result').append("<div><span class=\"resultRow\">"+key+"さん</span><span> から </span><span class=\"resultRow\">"+val2.toLocaleString()+"円</span><span> を</span></div>")
+					  lineMsg += key+"さん から "+val2.toLocaleString()+"円 を" + br;
 				  })
 				  $('.result').append("<span>貰ってください</span>")
 				  $('.result').append("</div>")
+				  lineMsg += "貰ってください"+ br;
 			  })
 		  }
+		  lineMsg += "【TATEKAE】" +warikanURL;
+		  $('#lineAPI').attr('href', lineURL + lineMsg);
 	      $('#modalAreaResult').fadeIn();
 
-//		  $("html,body").animate({scrollTop:$('.result').offset().top});
 	  })
 	  .fail( (data) => {
 		  console.log(data);

@@ -121,6 +121,7 @@ header .theme {
 
 .resultButtonArea {
   margin-top:10px;
+  margin-bottom:10px;
   text-align:center;
 }
 .resultPerson {
@@ -167,6 +168,15 @@ header .theme {
   left: 0;
   background-color: #fff;
   opacity: 0.8;
+}
+
+.lineAPIArea {
+  text-align:right;
+}
+
+#lineAPIImg {
+  width:120px;
+  height:auto;
 }
  
 #loading .loadingMsg {
