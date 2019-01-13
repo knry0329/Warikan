@@ -53,7 +53,10 @@
               <p>参加者名と、立て替えた金額、用途を入力してください。<br />
                                        名前と金額は必須入力。用途は任意入力です。</p>
             <th:block class="tmpSave" th:if="${session?.user}!=null">
-              <button type="button" class="btn btn-outline-danger postTmpInfo col-sm-2"><i class="fas fa-plus"></i> 一時保存</button>
+              <div class="tmpSaveButton">
+              <div id="tmpSaveMessageArea"></div>
+              <button type="button" class="btn btn-outline-danger postTmpInfo col-sm-2"><i class="fas fa-save"></i> 一時保存</button>
+              </div>
             </th:block>
             </div>
             <div class="" id="template-show"></div>
