@@ -6,7 +6,7 @@
   p {
   color: #494949;/*文字色*/
   background: transparent;/*背景透明に*/
-  border-left: solid 5px #ff007e;/*左線*/
+  border-left: solid 5px ThreeDHighlight;/*左線*/
   padding-left:10px;
   }
   
@@ -30,11 +30,11 @@
   }
   
   #tmpSaveMessageArea span {
-    border-bottom: solid 1px #ff007e;
+    border-bottom: solid 1px ThreeDHighlight;
   }
   
   .person{
-    border:solid 2px #ff007e;
+    border:solid 2px ThreeDHighlight;
     border-radius: 10px;
     padding:10px;
     margin-top:5px;
@@ -75,7 +75,7 @@
 
 header .theme {
 	line-height:65px;
-    color:#ff007e;
+    color:ThreeDHighlight;
 }
 
 .header-right a {
@@ -129,7 +129,7 @@ header .theme {
 }
 
 .resultRow {
-  border-bottom: solid 3px #ff007e;
+  border-bottom: solid 3px ThreeDHighlight;
 }
 
 .closeModal {
