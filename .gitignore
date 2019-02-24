@@ -9,6 +9,8 @@
 .settings
 .springBeans
 .sts4-cache
+## add knry0329 ##
+/src/main/resources/application.yml
 
 ### IntelliJ IDEA ###
 .idea
