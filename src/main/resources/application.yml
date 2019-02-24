@@ -2,7 +2,7 @@ server:
   port: 8090
   servlet:
     session:
-      timeout: 2400
+      timeout: 2700
   
 spring:
   thymeleaf:
