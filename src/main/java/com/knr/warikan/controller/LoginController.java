@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,15 +45,18 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
 	public FlgForm loginCheck(@ModelAttribute LoginForm form, Model model) {
-		
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		FlgForm flgForm = new FlgForm();
 		flgForm.setFlg(false);
 		
 		Optional<MUserEntity> entity = repository.findById(form.getUser_id());
 		
 		if(entity.isPresent()) {
-			if(entity.get().getPassword().equals(form.getPassword())) {
-				flgForm.setFlg(true);
+			// パスワードハッシュ化対応
+//			if(entity.get().getPassword().equals(form.getPassword())) {
+			if(bCryptPasswordEncoder.matches(form.getPassword(), entity.get().getPassword())) {
+			flgForm.setFlg(true);
+			
 			}
 		}
 		

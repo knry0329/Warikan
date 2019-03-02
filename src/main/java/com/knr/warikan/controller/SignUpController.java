@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.knr.warikan.entity.MUserEntity;
 import com.knr.warikan.form.ErrorForm;
@@ -37,6 +38,10 @@ public class SignUpController extends BaseController {
 			model.addAttribute("errorForm",eForm);
 			return "error";
 		}
+		// パスワードハッシュ化対応
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		String hash = bCryptPasswordEncoder.encode(mUser.getPassword());
+		mUser.setPassword(hash);
 		
 		repository.saveAndFlush(mUser);
 		session.setAttribute("user", mUser.getUser_id());
