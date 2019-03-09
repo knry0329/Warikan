@@ -34,6 +34,7 @@ $(function(){
 		  $('#messageArea').text("必須項目を入力してください。")
 		  return;
 	  }
+	  dispLoading("計算中...");
 	  var $form = $('#postForm');
 	  $.ajax({
 		  url:'/result',
@@ -74,14 +75,14 @@ $(function(){
 		  console.log(data);
 	  })
 	  .always( (data) => {
-		  
+		  removeLoading();
 	  });
   });
 
   //一時保存押下後
   $('.postTmpInfo').on('click', function() {
 	  $('#tmpSaveMessageArea').text('');
-	  dispLoading("処理中...");
+	  dispLoading("一時保存中...");
 	  var $form = $('#postForm');
 	  $.ajax({
 		  url:'/tmpsave',
