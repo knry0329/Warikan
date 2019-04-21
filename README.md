@@ -3,7 +3,7 @@ Tatekae
 ==========
 
 世界で一番シンプルな旅費精算Webツールです。  
-herokuページは[こちら](https://calm-escarpment-22245.herokuapp.com/)
+herokuページは[こちら](https://simple-tatekae.herokuapp.com/)
 
 
 目次
