@@ -4,14 +4,14 @@
   }
   
   p {
-  color: #494949;/*文字色*/
-  background: transparent;/*背景透明に*/
-  border-left: solid 5px ThreeDHighlight;/*左線*/
+  color: #494949;
+  background: transparent;
+  border-left: solid 5px ThreeDHighlight;
   padding-left:10px;
   }
   
   .theme{
-    font-family: cursive;
+    font-family: auto;
   }
   
   .container{
@@ -90,11 +90,10 @@ header .theme {
 .header-right a:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
-/* モーダルCSS */
 .modalArea {
   display: none;
   position: fixed;
-  z-index: 10; /*サイトによってここの数値は調整 */
+  z-index: 10; 
   top: 0;
   left: 0;
   width: 100%;

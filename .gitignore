@@ -11,6 +11,7 @@
 .sts4-cache
 ### add knry0329 ###
 src/main/resources/application.yml
+.DS_Store
 
 ### IntelliJ IDEA ###
 .idea

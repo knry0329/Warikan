@@ -66,7 +66,7 @@ $(function(){
 				  lineMsg += "貰ってください"+ br;
 			  })
 		  }
-		  lineMsg += "【TATEKAE】" +warikanURL;
+		  lineMsg += "【】" +warikanURL;
 		  $('#lineAPI').attr('href', lineURL + lineMsg);
 	      $('#modalAreaResult').fadeIn();
 
