@@ -1,0 +1,16 @@
+version: '3'
+
+services: 
+  web-dev:
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+    - '8190:8090'
+    links:
+    - db-dev
+  db-dev:
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+      

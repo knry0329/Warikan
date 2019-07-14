@@ -32,12 +32,12 @@ public class SignUpController extends BaseController {
 	@Transactional(readOnly=false)
 	public String signup(@ModelAttribute("formModel") MUserEntity mUser, HttpServletRequest request, Model model) {
 		
-		if(!originHeaderCheck(request)) {
-			ErrorForm eForm = new ErrorForm();
-			eForm.setMsg("異なるドメインからのアクセスの可能性があります。");
-			model.addAttribute("errorForm",eForm);
-			return "error";
-		}
+//		if(!originHeaderCheck(request)) {
+//			ErrorForm eForm = new ErrorForm();
+//			eForm.setMsg("異なるドメインからのアクセスの可能性があります。");
+//			model.addAttribute("errorForm",eForm);
+//			return "error";
+//		}
 		// パスワードハッシュ化対応
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		String hash = bCryptPasswordEncoder.encode(mUser.getPassword());
