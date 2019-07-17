@@ -8,7 +8,7 @@ herokuページは[こちら](https://tatekae-simple.herokuapp.com/)
 
 目次
 -----------------
-ｖ
+
   * [機能一覧](#機能一覧)
   * [使用している技術](#使用している技術)
 
@@ -35,6 +35,13 @@ herokuページは[こちら](https://tatekae-simple.herokuapp.com/)
   その後、下記URLからアクセスしてください。   
   `http://localhost:8190`
 
+CI/CD
+------------
+
+  * CircleCI  
+  CIツールにCircleCIを使っています。  
+  githubへのpush後、docker-composeによるWebサーバコンテナ、DBサーバコンテナの立ち上げ  
+  およびJUnitによるUnitTestの自動実行が走るよう設定しています。
 
 使用している技術
 -----
@@ -47,6 +54,7 @@ herokuページは[こちら](https://tatekae-simple.herokuapp.com/)
   * jQuery
   * PostgreSQL
   * Docker-compose
+  * CircleCI
 
 
 License
