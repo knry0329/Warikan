@@ -1,29 +1,21 @@
 version: 2
 jobs:
   build:
-#    docker:
-#      - image: circleci/ruby:2.4.2-jessie-node
     machine: true
     steps:
       - checkout
-#      - run: 
-#          name: docker compose build
-#          command: docker compose build
-      - run: 
-          name: pwd
-          command: pwd
-      - run: 
-          name: ls
-          command: ls -l
+###   create jar file on circleci env .
       - run: 
           name: mvn package -DskipTests
           command: mvn package -DskipTests
+###   create testing env from docker-compose file .
       - run: 
           name: docker compose up
           command: docker-compose up -d --build
       - run: 
-          name: sleep 30 sec
-          command: sleep 30s
+          name: sleep 10 sec
+          command: sleep 10s
+###   run mvn test .
       - run: 
           name: mvn test
           command: mvn test

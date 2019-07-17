@@ -16,6 +16,11 @@ spring:
   thymeleaf:
     enabled: true
     cache: false 
+  datasource:
+    url: jdbc:postgresql://localhost:5632/user1
+    username: user1
+    password: user1
+    driver-class-name: org.postgresql.Driver
 ---
 spring:
   profiles: docker
