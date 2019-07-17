@@ -10,6 +10,9 @@ jobs:
 #          name: docker compose build
 #          command: docker compose build
       - run: 
+          name: pwd
+          command: pwd
+      - run: 
           name: docker compose up
           command: docker-compose up -d --build
       - run: 
