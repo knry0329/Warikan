@@ -13,6 +13,9 @@ jobs:
           name: pwd
           command: pwd
       - run: 
+          name: ls
+          command: ls -l
+      - run: 
           name: docker compose up
           command: docker-compose up -d --build
       - run: 
