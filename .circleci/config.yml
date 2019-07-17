@@ -16,6 +16,9 @@ jobs:
           name: ls
           command: ls -l
       - run: 
+          name: mvn package -DskipTests
+          command: mvn package -DskipTests
+      - run: 
           name: docker compose up
           command: docker-compose up -d --build
       - run: 
